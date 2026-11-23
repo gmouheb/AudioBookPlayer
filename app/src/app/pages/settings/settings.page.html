@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-input
+        label="Server URL"
+        labelPlacement="stacked"
+        type="url"
+        inputmode="url"
+        autocapitalize="off"
+        autocorrect="off"
+        placeholder="https://my-pc.tailnet-name.ts.net"
+        [(ngModel)]="url"
+        (ionInput)="edited()"
+      ></ion-input>
+    </ion-item>
+  </ion-list>
+  <ion-note class="ion-padding-horizontal">
+    Your server's Tailscale HTTPS address (from <code>tailscale serve</code>).
+  </ion-note>
+
+  <div class="actions ion-margin-top">
+    <ion-button fill="outline" (click)="save()">{{ saved() ? 'Saved' : 'Save' }}</ion-button>
+    <ion-button (click)="testConnection()" [disabled]="test().kind === 'testing'">Test connection</ion-button>
+  </div>
+
+  @switch (test().kind) { @case ('testing') {
+  <div class="result"><ion-spinner name="crescent"></ion-spinner> Connecting…</div>
+  } @case ('ok') {
+  <div class="result">
+    <ion-icon name="checkmark-circle" color="success"></ion-icon>
+    <ion-label>
+      <strong>Connected</strong>
+      @if (!$any(test()).modelReady) {
+      <p>The voice model is still loading on the server.</p>
+      }
+    </ion-label>
+  </div>
+  } @case ('failed') {
+  <div class="result">
+    <ion-icon name="alert-circle" color="danger"></ion-icon>
+    <ion-label class="ion-text-wrap">{{ $any(test()).message }}</ion-label>
+  </div>
+  } }
+</ion-content>

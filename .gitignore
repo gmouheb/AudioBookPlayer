@@ -1,0 +1,6 @@
+samples/
+data/
+__pycache__/
+.venv/
+*.pyc
+node_modules/

@@ -1,0 +1,15 @@
+services:
+  narrate:
+    build:
+      context: ./backend
+      dockerfile: Containerfile
+    image: localhost/narrate:latest
+    # Bound to localhost only: reach it from the phone via `tailscale serve`,
+    # never expose it to the internet.
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./data:/data:Z
+    environment:
+      NARRATE_VOICE: af_heart
+    restart: unless-stopped

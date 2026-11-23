@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ book()?.title ?? 'Book' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  @if (error(); as err) {
+  <ion-item color="danger" lines="none">
+    <ion-label class="ion-text-wrap">{{ err }}</ion-label>
+  </ion-item>
+  } @if (book(); as b) {
+  <ion-list>
+    @for (chapter of b.chapters; track chapter.index) {
+    <ion-item button [class.now-playing]="isCurrent(chapter)" (click)="play(chapter)">
+      @if (isCurrent(chapter)) {
+      <ion-icon slot="start" name="volume-high" color="primary"></ion-icon>
+      }
+      <ion-label>
+        <h2>{{ chapter.title }}</h2>
+        <p>{{ minutes(chapter) }} · {{ chapter.parts.length }} parts</p>
+      </ion-label>
+      <ion-note slot="end" class="status">
+        @switch (chapter.status) { @case ('ready') {
+        <ion-icon name="checkmark-circle" color="success"></ion-icon> ready } @case ('generating') {
+        <ion-spinner name="crescent" color="warning"></ion-spinner>
+        generating {{ readyParts(chapter) }}/{{ chapter.parts.length }} } @case ('error') {
+        <ion-icon name="alert-circle" color="danger"></ion-icon> error } @default {
+        <ion-icon name="time-outline" color="medium"></ion-icon>
+        queued @if (readyParts(chapter) > 0) { {{ readyParts(chapter) }}/{{ chapter.parts.length }} } } }
+      </ion-note>
+    </ion-item>
+    }
+  </ion-list>
+  }
+</ion-content>
+
+@if (player.book()) {
+<ion-footer>
+  <app-player-bar></app-player-bar>
+</ion-footer>
+}
