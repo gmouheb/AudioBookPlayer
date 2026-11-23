@@ -57,7 +57,11 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.NARRATE_KEYSTORE_BASE64 }}
         run: |
           if [ -n "$KEYSTORE_BASE64" ]; then
-            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/narrate-release.jks"
+            # Tolerate spaces/line breaks picked up when copying the secret.
+            if ! printf '%s' "$KEYSTORE_BASE64" | tr -d '[:space:]' | base64 -d > "$RUNNER_TEMP/narrate-release.jks"; then
+              echo "::error::NARRATE_KEYSTORE_BASE64 is not valid base64 ($(printf '%s' "$KEYSTORE_BASE64" | tr -d '[:space:]' | wc -c) chars). Paste the whole file again (5668 chars, ends with '=')."
+              exit 1
+            fi
             echo "NARRATE_KEYSTORE=$RUNNER_TEMP/narrate-release.jks" >> "$GITHUB_ENV"
           else
             echo "::warning::No signing secrets set; building with a debug key."
