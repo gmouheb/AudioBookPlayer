@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#4338CA"/>
+      <stop offset="1" stop-color="#7C3AED"/>
+    </linearGradient>
+  </defs>
+  <rect id="background" width="1024" height="1024" fill="url(#bg)"/>
+  <g id="foreground" fill="none" stroke="#fff" stroke-width="36" stroke-linecap="round" stroke-linejoin="round">
+    <!-- open book -->
+    <path d="M512 700 C450 660 380 650 312 660 L312 480 C380 470 450 480 512 520 Z" fill="#fff" fill-opacity="0.95"/>
+    <path d="M512 700 C574 660 644 650 712 660 L712 480 C644 470 574 480 512 520 Z" fill="#fff" fill-opacity="0.8"/>
+    <!-- sound waves rising from the book -->
+    <path d="M462.5 420.5 A70 70 0 0 1 561.5 420.5"/>
+    <path d="M427.1 385.1 A120 120 0 0 1 596.9 385.1"/>
+    <path d="M391.8 349.8 A170 170 0 0 1 632.2 349.8"/>
+  </g>
+</svg>

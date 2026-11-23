@@ -414,8 +414,7 @@ export class PlayerService {
       title: this.chapterInfo()?.title ?? book.title,
       artist: book.author,
       album: book.title,
-      // TODO(step 5): switch to the real 512px launcher icon.
-      artwork: [{ src: 'assets/icon/favicon.png', type: 'image/png' }],
+      artwork: [{ src: 'assets/icon/icon-512.png', sizes: '512x512', type: 'image/png' }],
     });
   }
 

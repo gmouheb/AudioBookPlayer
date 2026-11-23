@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Narrate</string>
+    <string name="title_activity_main">Narrate</string>
+    <string name="package_name">com.personal.narrate</string>
+    <string name="custom_url_scheme">com.personal.narrate</string>
+</resources>
